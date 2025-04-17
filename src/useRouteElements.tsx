@@ -1,4 +1,4 @@
-import Register from '@/layout/RegisterLayout'
+import Register from '@/page/Register/Register'
 import RegisterLayout from '@/layout/RegisterLayout/RegisterLayout'
 import Login from '@/page/Login'
 import ProductList from '@/page/ProductList'
