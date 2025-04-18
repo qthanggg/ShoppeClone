@@ -10,8 +10,9 @@ import { ErrorResponse } from '@/types/util.type'
 import { useContext } from 'react'
 import { AppContext } from '@/context/Context'
 import Button from '@/components/Button'
+import path from '@/constants/path'
 export default function Register() {
-  const { setIsAuthenticated } = useContext(AppContext)
+  const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
   const {
     handleSubmit,
@@ -28,9 +29,10 @@ export default function Register() {
 
   const onSubmit = handleSubmit((data) => {
     registerAccountMutation.mutate(data, {
-      onSuccess: () => {
+      onSuccess: (data) => {
         setIsAuthenticated(true)
-        navigate('/')
+        setProfile(data.data.data.user)
+        navigate(path.home)
       },
       onError: (error) => {
         if (isAxiosUnprocessableEntityError<ErrorResponse<RegisterSchema>>(error)) {
@@ -105,7 +107,7 @@ export default function Register() {
               </div>
               <div className='flex items-center justify-center mt-8'>
                 <span className='text-gray-400'>Bạn đã có tài khoản?</span>
-                <Link className='text-red-400 ml-1' to='/login'>
+                <Link className='text-red-400 ml-1' to={path.login}>
                   Đăng nhập
                 </Link>
               </div>

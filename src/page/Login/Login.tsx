@@ -11,8 +11,9 @@ import { ErrorResponse } from '@/types/util.type'
 import { useContext } from 'react'
 import { AppContext } from '@/context/Context'
 import Button from '@/components/Button'
+import path from '@/constants/path'
 export default function Login() {
-  const { setIsAuthenticated } = useContext(AppContext)
+  const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
   const {
     handleSubmit,
@@ -27,11 +28,12 @@ export default function Login() {
     mutationFn: (body: LoginSchema) => login(body)
   })
 
-  const onSubmit = handleSubmit((data) => {
-    loginMutation.mutate(data, {
-      onSuccess: () => {
+  const onSubmit = handleSubmit((formData) => {
+    loginMutation.mutate(formData, {
+      onSuccess: (data) => {
         setIsAuthenticated(true)
-        navigate('/')
+        setProfile(data.data.data.user)
+        navigate(path.home)
       },
       onError: (error) => {
         if (isAxiosUnprocessableEntityError<ErrorResponse<LoginSchema>>(error)) {
@@ -87,7 +89,7 @@ export default function Login() {
               </div>
               <div className='flex items-center justify-center mt-8'>
                 <span className='text-gray-400'>Bạn chưa có tài khoản?</span>
-                <Link className='text-red-400 ml-1' to='/register'>
+                <Link className='text-red-400 ml-1' to={path.register}>
                   Đăng ký
                 </Link>
               </div>
