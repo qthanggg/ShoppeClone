@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { rules } from '@/utils/rules'
 import { FormValues } from '@/utils/rules'
 export default function Login() {
   const {
@@ -25,16 +24,15 @@ export default function Login() {
                   type='email'
                   className='p-3 w-full outline-none border border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm'
                   placeholder='Email'
-                  {...register('email', rules.email)}
                 />
                 <div className='mt-1 text-red-600 min-h-[1rem] text-sm'>{errors.email?.message}</div>
               </div>
               <div className='mt-3'>
                 <input
                   type='password'
+                  autoComplete='true'
                   className='p-3 w-full outline-none border border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm'
                   placeholder='Password'
-                  {...register('password', rules.password)}
                 />
                 <div className='mt-1 text-red-600 min-h-[1rem] text-sm'>{errors.password?.message}</div>
               </div>
