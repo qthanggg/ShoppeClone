@@ -1,7 +1,7 @@
 import { User } from '@/types/user.type'
-import { Response } from '@/types/util.type'
+import { SucessResponse } from '@/types/util.type'
 
-export type AuthResponse = Response<{
+export type AuthResponse = SucessResponse<{
   access_token: string
   expires: string
   refreshToken: string

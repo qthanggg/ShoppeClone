@@ -1,11 +1,5 @@
 import * as yup from 'yup'
 
-export interface FormValues {
-  email: string
-  password: string
-  confirm_password?: string
-}
-
 export const loginSchema = yup.object({
   email: yup
     .string()
