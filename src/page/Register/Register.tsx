@@ -3,23 +3,57 @@ import { FormValues, schema } from '@/utils/rules'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation } from '@tanstack/react-query'
+import { registerAccount } from '@/apis/auth.api'
+import { Omit, omit } from 'lodash'
+import { isAxiosUnprocessableEntityError } from '@/utils/utils'
+import { Response as ReponseAPi } from '@/types/util.type'
 export default function Register() {
   const {
     register,
-    getValues,
     handleSubmit,
+    setError,
     formState: { errors }
   } = useForm<FormValues>({
     resolver: yupResolver(schema)
   })
-  const onSubmit = handleSubmit(
-    (data) => {
-      console.log(data)
-    },
-    (data) => {
-      const password = getValues('password')
-    }
-  )
+
+  const registerAccountMutation = useMutation({
+    mutationFn: (body: Omit<FormValues, 'confirm_password'>) => registerAccount(body)
+  })
+  const onSubmit = handleSubmit((data) => {
+    const body = omit(data, ['confirm_password'])
+    registerAccountMutation.mutate(body, {
+      onSuccess: (data) => {
+        console.log(data)
+      },
+      onError: (error) => {
+        if (isAxiosUnprocessableEntityError<ReponseAPi<Omit<FormValues, 'confirm_password'>>>(error)) {
+          const formErrors = error.response?.data.data
+          if (formErrors) {
+            Object.keys(formErrors).forEach((key) => {
+              setError(key as keyof Omit<FormValues, 'confirm_password'>, {
+                message: formErrors[key as keyof Omit<FormValues, 'confirm_password'>],
+                type: 'Server'
+              })
+            })
+          }
+          // if (formErrors?.email) {
+          //   setError('email', {
+          //     message: formErrors.email,
+          //     type: 'Server'
+          //   })
+          // }
+          // if (formErrors?.password) {
+          //   setError('password', {
+          //     message: formErrors.password,
+          //     type: 'Server'
+          //   })
+          // }
+        }
+      }
+    })
+  })
 
   return (
     <div className='bg-[#EE4D2D]'>
