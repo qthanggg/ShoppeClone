@@ -1,3 +1,4 @@
+import path from '@/constants/path'
 import { Link, useMatch } from 'react-router-dom'
 
 export default function RegisterHeader() {
@@ -7,7 +8,7 @@ export default function RegisterHeader() {
     <header className='py-5'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <nav className='flex items-end'>
-          <Link to='/' className='h8 lg:h-11'>
+          <Link to={path.home} className='h8 lg:h-11'>
             <img
               src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Shopee.svg/2560px-Shopee.svg.png'
               alt='logo'
