@@ -10,6 +10,7 @@ import Input from '@/components/Input'
 import { ErrorResponse } from '@/types/util.type'
 import { useContext } from 'react'
 import { AppContext } from '@/context/Context'
+import Button from '@/components/Button'
 export default function Login() {
   const { setIsAuthenticated } = useContext(AppContext)
   const navigate = useNavigate()
@@ -74,12 +75,15 @@ export default function Login() {
               />
 
               <div className='mt-3'>
-                <button
-                  className='w-full text-center py-4 px-2 uppercase bg-red-500 text-white text-sm hover:bg-red-600'
+                <Button
+                  className='w-full text-center py-4 px-2 uppercase bg-red-500 text-white text-sm hover:bg-red-600
+                  flex justify-center items-center'
                   type='submit'
+                  isLoanding={loginMutation.isPending}
+                  disabled={loginMutation.isPending}
                 >
                   Đăng nhập
-                </button>
+                </Button>
               </div>
               <div className='flex items-center justify-center mt-8'>
                 <span className='text-gray-400'>Bạn chưa có tài khoản?</span>

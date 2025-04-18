@@ -9,6 +9,7 @@ import { isAxiosUnprocessableEntityError } from '@/utils/utils'
 import { ErrorResponse } from '@/types/util.type'
 import { useContext } from 'react'
 import { AppContext } from '@/context/Context'
+import Button from '@/components/Button'
 export default function Register() {
   const { setIsAuthenticated } = useContext(AppContext)
   const navigate = useNavigate()
@@ -94,9 +95,13 @@ export default function Register() {
                 autoComplete='on'
               />
               <div className='mt-3'>
-                <button className='w-full text-center py-4 px-2 uppercase bg-red-500 text-white text-sm hover:bg-red-600'>
+                <Button
+                  className='w-full text-center py-4 px-2 uppercase bg-red-500 text-white text-sm hover:bg-red-600 flex justify-center items-center'
+                  isLoanding={registerAccountMutation.isPending}
+                  disabled={registerAccountMutation.isPending}
+                >
                   Đăng ký
-                </button>
+                </Button>
               </div>
               <div className='flex items-center justify-center mt-8'>
                 <span className='text-gray-400'>Bạn đã có tài khoản?</span>
