@@ -1,11 +1,12 @@
 import * as yup from 'yup'
+
 export interface FormValues {
   email: string
   password: string
-  confirm_password: string
+  confirm_password?: string
 }
 
-export const schema = yup.object().shape({
+export const loginSchema = yup.object({
   email: yup
     .string()
     .email('Email not valid')
@@ -16,12 +17,15 @@ export const schema = yup.object().shape({
     .string()
     .required('Password is required')
     .min(6, 'Length from 6 - 160 characters')
-    .max(160, 'Length from 6 - 160 characters'),
+    .max(160, 'Length from 6 - 160 characters')
+})
+
+export const registerSchema = loginSchema.shape({
   confirm_password: yup
     .string()
     .required('Confirm password is required')
-    .min(6, 'Length from 6 - 160 characters')
-    .max(160, 'Length from 6 - 160 characters')
     .oneOf([yup.ref('password')], 'Confirm password not match')
 })
-export type Schema = yup.InferType<typeof schema>
+
+export type LoginSchema = yup.InferType<typeof loginSchema>
+export type RegisterSchema = yup.InferType<typeof registerSchema>

@@ -1,39 +1,37 @@
 import Input from '@/components/Input'
-import { FormValues, schema } from '@/utils/rules'
+import { registerSchema, RegisterSchema } from '@/utils/rules'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import { registerAccount } from '@/apis/auth.api'
-import { Omit, omit } from 'lodash'
 import { isAxiosUnprocessableEntityError } from '@/utils/utils'
-import { Response as ReponseAPi } from '@/types/util.type'
+import { Response as ReponseAPI } from '@/types/util.type'
+
 export default function Register() {
   const {
-    register,
     handleSubmit,
+    register,
     setError,
     formState: { errors }
-  } = useForm<FormValues>({
-    resolver: yupResolver(schema)
+  } = useForm<RegisterSchema>({
+    resolver: yupResolver(registerSchema)
   })
 
   const registerAccountMutation = useMutation({
-    mutationFn: (body: Omit<FormValues, 'confirm_password'>) => registerAccount(body)
+    mutationFn: (body: RegisterSchema) => registerAccount(body)
   })
+
   const onSubmit = handleSubmit((data) => {
-    const body = omit(data, ['confirm_password'])
-    registerAccountMutation.mutate(body, {
-      onSuccess: (data) => {
-        console.log(data)
-      },
+    registerAccountMutation.mutate(data, {
+      onSuccess: (res) => console.log(res),
       onError: (error) => {
-        if (isAxiosUnprocessableEntityError<ReponseAPi<Omit<FormValues, 'confirm_password'>>>(error)) {
+        if (isAxiosUnprocessableEntityError<ReponseAPI<RegisterSchema>>(error)) {
           const formErrors = error.response?.data.data
           if (formErrors) {
-            Object.keys(formErrors).forEach((key) => {
-              setError(key as keyof Omit<FormValues, 'confirm_password'>, {
-                message: formErrors[key as keyof Omit<FormValues, 'confirm_password'>],
+            Object.entries(formErrors).forEach(([key, message]) => {
+              setError(key as keyof RegisterSchema, {
+                message: message,
                 type: 'Server'
               })
             })
