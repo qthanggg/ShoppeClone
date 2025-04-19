@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { registerAccount } from '@/apis/auth.api'
+import authApi from '@/apis/auth.api'
 import { isAxiosUnprocessableEntityError } from '@/utils/utils'
 import { ErrorResponse } from '@/types/util.type'
 import { useContext } from 'react'
@@ -24,7 +24,7 @@ export default function Register() {
   })
 
   const registerAccountMutation = useMutation({
-    mutationFn: (body: RegisterSchema) => registerAccount(body)
+    mutationFn: (body: RegisterSchema) => authApi.registerAccount(body)
   })
 
   const onSubmit = handleSubmit((data) => {

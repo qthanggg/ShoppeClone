@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import Popover from '../Popover'
 import { useMutation } from '@tanstack/react-query'
-import { logout } from '@/apis/auth.api'
+import autApi from '@/apis/auth.api'
 import { useContext } from 'react'
 import { AppContext } from '@/context/Context'
 import { clearLS } from '@/utils/auth'
@@ -11,7 +11,7 @@ export default function Header() {
   const { setIsAuthenticated, isAuthenticated, setProfile, profile } = useContext(AppContext)
   const navigator = useNavigate()
   const logoutMutation = useMutation({
-    mutationFn: logout,
+    mutationFn: autApi.logout,
     onSuccess: () => {
       setIsAuthenticated(false)
       clearLS()
