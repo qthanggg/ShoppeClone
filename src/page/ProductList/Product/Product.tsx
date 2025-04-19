@@ -25,14 +25,14 @@ export default function Product({ product }: PropsProduct) {
               <span className='text-sm'>{formatCurrency(product.price_before_discount)}</span>
             </div>
             <div className='ml-1 truncate text-orange'>
-              <span className='text-xs'>₫</span>
-              <span className='text-sm'>{formatCurrency(product.price)}</span>
+              <span className='text-xl  text-[#F8482E] '>₫</span>
+              <span className='text-xl text-[#F8482E]'>{formatCurrency(product.price)}</span>
             </div>
           </div>
           <div className='mt-3 flex items-center justify-end'>
             <div className='flex items-center'>
               {/* Placeholder for stars */}
-            <ProductRating rating={product.rating}/>
+              <ProductRating rating={product.rating} />
             </div>
             <div className='ml-2 text-sm'>
               <span>{formatNumberToSocialStyle(product.sold)}</span>
