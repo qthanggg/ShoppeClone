@@ -1,3 +1,5 @@
+import ProductRating from '@/components/ProductRating'
+import path from '@/constants/path'
 import { Product as ProductType } from '@/types/product.type'
 import { formatCurrency, formatNumberToSocialStyle } from '@/utils/utils'
 import { Link } from 'react-router-dom'
@@ -6,7 +8,7 @@ interface PropsProduct {
 }
 export default function Product({ product }: PropsProduct) {
   return (
-    <Link to='/'>
+    <Link to={path.home}>
       <div className='overflow-hidden rounded-sm bg-white shadow transition-transform duration-100 hover:translate-y-[-0.04rem] hover:shadow-md'>
         <div className='relative w-full pt-[100%]'>
           <img
@@ -30,7 +32,7 @@ export default function Product({ product }: PropsProduct) {
           <div className='mt-3 flex items-center justify-end'>
             <div className='flex items-center'>
               {/* Placeholder for stars */}
-              <span className='text-yellow-400'>★★★★★</span>
+            <ProductRating rating={product.rating}/>
             </div>
             <div className='ml-2 text-sm'>
               <span>{formatNumberToSocialStyle(product.sold)}</span>
