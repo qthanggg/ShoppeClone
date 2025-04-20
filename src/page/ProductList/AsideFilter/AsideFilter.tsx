@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 export default function AsideFilter() {
   return (
-    <div className='w-fu py-4'>
+    <div className='w-full py-4'>
       <Link to={path.home} className='flex items-center font-bold'>
         <svg viewBox='0 0 12 10' className='w-3 h-4 mr-3 fill-current'>
           <g fillRule='evenodd' stroke='none' strokeWidth={1}>
