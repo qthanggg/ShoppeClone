@@ -44,8 +44,8 @@ export default function ProductList() {
     }
   })
   return (
-    <div className='max-w-[1440px] mx-auto px-4  py-6'>
-      <div className='max-w-[1440px]'>
+    <div className='max-w-[1200px] mx-auto px-4  py-6'>
+      <div className='max-w-[1200px]'>
         {productDatas && (
           <div className='grid grid-cols-12 gap-6'>
             <div className='col-span-3'>
