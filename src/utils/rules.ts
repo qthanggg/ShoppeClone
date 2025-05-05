@@ -46,5 +46,8 @@ export const filterPrice = yup.object({
     }
   })
 })
+export const searchHeader = yup.object({
+  name: yup.string().trim().required('Tên sản phẩm là bắt buộc')
+})
 export type LoginSchema = yup.InferType<typeof loginSchema>
 export type RegisterSchema = yup.InferType<typeof registerSchema>
