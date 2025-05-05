@@ -5,12 +5,14 @@ import { useParams } from 'react-router-dom'
 import productApi from '@/apis/product.api'
 import InputNumber from '@/components/InputNumber'
 import ProductRating from '@/components/ProductRating'
-import { Product } from 'src/types/product.type'
+import { Product as ProductType, ProductListConfig } from 'src/types/product.type'
 import { formatCurrency, formatNumberToSocialStyle, rateSale, getIdFromNameId } from '@/utils/utils'
+import Product from '@/page/ProductList/components/Product'
 
 export default function ProductDetail() {
   const { nameId } = useParams()
   const id = getIdFromNameId(nameId as string)
+
   const { data: productDetailData } = useQuery({
     queryKey: ['product', id],
     queryFn: () => productApi.getProductDetails(id as string)
@@ -23,6 +25,15 @@ export default function ProductDetail() {
     () => (product ? product.images.slice(...currentIndexImages) : []),
     [product, currentIndexImages]
   )
+  const queryConfig: ProductListConfig = { limit: '20', page: '1', category: product?.category._id }
+  const { data: productDatas } = useQuery({
+    queryKey: ['products', queryConfig],
+    queryFn: () => {
+      return productApi.getProducts(queryConfig)
+    },
+    staleTime: 3 * 60 * 1000,
+    enabled: Boolean(product)
+  })
 
   useEffect(() => {
     if (product && product.images.length > 0) {
@@ -32,7 +43,7 @@ export default function ProductDetail() {
 
   const next = () => {
     console.log(currentIndexImages[1])
-    if (currentIndexImages[1] < (product as Product).images.length) {
+    if (currentIndexImages[1] < (product as ProductType).images.length) {
       setCurrentIndexImages((prev) => [prev[0] + 1, prev[1] + 1])
     }
   }
@@ -239,6 +250,20 @@ export default function ProductDetail() {
               }}
             />
           </div>
+        </div>
+      </div>
+      <div className='mt-8'>
+        <div className=' mx-auto max-w-[1200px]'>
+          <div className='uppercase text-gray-400'>CÓ THỂ BẠN CŨNG THÍCH</div>
+          {productDatas && (
+            <div className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4'>
+              {productDatas.data.data.products.map((product) => (
+                <div className='col-span-1' key={product._id}>
+                  <Product product={product} />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
