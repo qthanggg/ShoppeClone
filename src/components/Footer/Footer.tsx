@@ -60,18 +60,30 @@ export default function Footer() {
           <div>
             <h3 className='font-medium text-gray-800 mb-3'>THANH TOÁN</h3>
             <div className='grid grid-cols-3 gap-2'>
-              {[...Array(6)].map((_, i) => (
+              {[
+                'https://down-vn.img.susercontent.com/file/d4bbea4570b93bfd5fc652ca82a262a8',
+                'https://www.mastercard.us/content/dam/mccom/global/logos/logo-mastercard-mobile.svg',
+                'https://down-vn.img.susercontent.com/file/38fd98e55806c3b2e4535c4e4a6c4c08',
+                'https://down-vn.img.susercontent.com/file/9263fa8c83628f5deff55e2a90758b06'
+              ].map((src, i) => (
                 <div key={i} className='border p-1 rounded flex items-center justify-center'>
-                  <img src='https://via.placeholder.com/40x30' alt={`Payment ${i}`} className='h-[30px] w-[40px]' />
+                  <img src={src} alt={`Payment ${i}`} className='h-[30px] object-contain' />
                 </div>
               ))}
             </div>
 
             <h3 className='font-medium text-gray-800 mt-6 mb-3'>ĐƠN VỊ VẬN CHUYỂN</h3>
             <div className='grid grid-cols-3 gap-2'>
-              {[...Array(9)].map((_, i) => (
+              {[
+                'https://down-vn.img.susercontent.com/file/vn-11134258-7ras8-m20rc1wk8926cf',
+                'https://down-vn.img.susercontent.com/file/vn-50009109-64f0b242486a67a3d29fd4bcf024a8c6',
+                'https://down-vn.img.susercontent.com/file/59270fb2f3fbb7cbc92fca3877edde3f',
+                'https://down-vn.img.susercontent.com/file/957f4eec32b963115f952835c779cd2c',
+                'https://down-vn.img.susercontent.com/file/0d349e22ca8d4337d11c9b134cf9fe63',
+                'https://down-vn.img.susercontent.com/file/0b3014da32de48c03340a4e4154328f6'
+              ].map((src, i) => (
                 <div key={i} className='border p-1 rounded flex items-center justify-center'>
-                  <img src='https://via.placeholder.com/40x30' alt={`Shipping ${i}`} className='h-[30px] w-[40px]' />
+                  <img src={src} alt={`Shipping ${i}`} className='h-[30px] object-contain' />
                 </div>
               ))}
             </div>
@@ -81,13 +93,26 @@ export default function Footer() {
           <div>
             <h3 className='font-medium text-gray-800 mb-3'>THEO DÕI SHOPEE</h3>
             <ul className='space-y-2'>
-              {['Facebook', 'Instagram', 'LinkedIn'].map((platform, idx) => (
+              {[
+                {
+                  name: 'Facebook',
+                  icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1200px-Facebook_f_logo_%282019%29.svg.png'
+                },
+                {
+                  name: 'Instagram',
+                  icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/600px-Instagram_icon.png'
+                },
+                {
+                  name: 'LinkedIn',
+                  icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/600px-LinkedIn_logo_initials.png'
+                }
+              ].map((platform, idx) => (
                 <li key={idx}>
                   <a href='#' className='flex items-center hover:text-orange-500'>
                     <div className='w-5 h-5 mr-2 flex items-center justify-center'>
-                      <img src='https://via.placeholder.com/20x20' alt={platform} className='w-5 h-5' />
+                      <img src={platform.icon} alt={platform.name} className='w-5 h-5' />
                     </div>
-                    {platform}
+                    {platform.name}
                   </a>
                 </li>
               ))}
@@ -99,13 +124,29 @@ export default function Footer() {
             <h3 className='font-medium text-gray-800 mb-3'>TẢI ỨNG DỤNG SHOPEE</h3>
             <div className='flex space-x-2 mb-2'>
               <div className='w-24 h-24'>
-                <img src='https://via.placeholder.com/96x96' alt='QR Code' className='w-24 h-24 border' />
+                <img
+                  src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png'
+                  alt='QR Code'
+                  className='w-24 h-24 border'
+                />
               </div>
               <div className='flex flex-col justify-between'>
-                {['App Store', 'Google Play', 'AppGallery'].map((store, idx) => (
+                {[
+                  {
+                    name: 'App Store',
+                    icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/1200px-Download_on_the_App_Store_Badge.svg.png'
+                  },
+                  {
+                    name: 'Google Play',
+                    icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/1200px-Google_Play_Store_badge_EN.svg.png'
+                  },
+                  {
+                    name: 'AppGallery',
+                    icon: 'https://down-vn.img.susercontent.com/file/35352374f39bdd03b25e7b83542b2cb0'
+                  }
+                ].map((store, idx) => (
                   <a key={idx} href='#' className='border rounded p-1 flex items-center space-x-1'>
-                    <img src='https://via.placeholder.com/20x20' alt={store} className='w-5 h-5' />
-                    <span className='text-xs'>{store}</span>
+                    <img src={store.icon} alt={store.name} className='h-5 w-auto' />
                   </a>
                 ))}
               </div>
@@ -162,16 +203,15 @@ export default function Footer() {
         </div>
 
         {/* Certification Logos */}
-        <div className='flex justify-center space-x-4 mb-6'>
-          {[120, 120, 40].map((w, idx) => (
-            <img
-              key={idx}
-              src={`https://via.placeholder.com/${w}x40`}
-              alt={`Certification ${idx + 1}`}
-              className={`h-10 ${w === 40 ? 'w-10' : ''}`}
-            />
+        {/* <div className='flex justify-center space-x-4 mb-6'>
+          {[
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Bo_cong_thuong_Vietnam.svg/1200px-Bo_cong_thuong_Vietnam.svg.png',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/DMCA_logo.svg/1200px-DMCA_logo.svg.png',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Trusted_Shops_Siegel.svg/1200px-Trusted_Shops_Siegel.svg.png'
+          ].map((src, idx) => (
+            <img key={idx} src={src} alt={`Certification ${idx + 1}`} className={`h-10 w-auto`} />
           ))}
-        </div>
+        </div> */}
 
         {/* Company Info */}
         <div className='text-center text-xs text-gray-600 space-y-2'>
