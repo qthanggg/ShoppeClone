@@ -4,10 +4,10 @@ import http from '@/utils/http'
 
 const purChaseApi = {
   addToCart(body: { product_id: string; buy_count: number }) {
-    http.post<SucessResponse<Purchase>>(`purchases/add-to-cart`, body)
+    return http.post<SucessResponse<Purchase>>(`purchases/add-to-cart`, body)
   },
   getPurChaseList(params: { status: PurchaseListStatus }) {
-    http.get<SucessResponse<Purchase[]>>(`purchases`, {
+    return http.get<SucessResponse<Purchase[]>>(`purchases`, {
       params
     })
   }
